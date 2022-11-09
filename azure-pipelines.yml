@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pool:
+  vmImage: windows-2019
+
+steps:
+- task: Windows Application Driver@0
+  inputs:
+    OperationType: 'Start'
+    AgentResolution: '1080p'
+- task: katalonTask@1
+  inputs:
+    version: '8.4.1'
+    executeArgs: '-testSuitePath="Test Suites/New Test Suite" -browserType="Windows" -apiKey=f70e7a9f-9042-4e64-8b77-2329a3ba4cba'
+- task: Windows Application Driver@0
+  inputs:
+    OperationType: 'Stop'
